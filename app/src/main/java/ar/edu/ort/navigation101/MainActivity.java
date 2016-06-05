@@ -7,9 +7,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,9 +23,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         inicializarToolbar(); // Setear Toolbar como action bar
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         if (navigationView != null) {
             setearListener(navigationView);
@@ -74,10 +76,14 @@ public class MainActivity extends AppCompatActivity {
         ActionBar ab = getSupportActionBar();
         if (ab != null) {
             // Poner ícono del drawer toggle
-            ab.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
-            ab.setDisplayHomeAsUpEnabled(true);
+            //ab.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+            //ab.setDisplayHomeAsUpEnabled(true);
         }
 
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawerLayout, toolbar, 0,0);
+        drawerLayout.setDrawerListener(toggle);
+        toggle.syncState();
     }
 
 
@@ -90,5 +96,14 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    // Infla el menu dentro del toolbar (settings, iconos)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 }
