@@ -29,6 +29,8 @@ public class FirstFragment extends Fragment {
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true); // to show actionbar icon calling onCreateOptionsMenu
         // Inflate the layout for this fragment
+        MainActivity ma= (MainActivity)getActivity();
+
         return inflater.inflate(R.layout.fragment_first, container, false);
     }
 

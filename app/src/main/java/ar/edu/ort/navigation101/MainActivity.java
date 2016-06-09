@@ -59,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
                 SecondFragment.class, null);
     }
 
+
+    // Listener de los clicks en el drawer
     private void setearListener(NavigationView navigationView) {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
