@@ -34,7 +34,6 @@ public class UserNameDialog extends DialogFragment {
                 Log.d("Click","OK");
                 mainActivity.setUserName(userName.getText().toString());
                 dismiss();
-
             }
         });
         getDialog().setTitle("Ingrese nombre de usuario");

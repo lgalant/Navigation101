@@ -13,11 +13,9 @@ import android.view.ViewGroup;
 
 public class FirstFragment extends Fragment {
 
-
     public FirstFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,8 +27,6 @@ public class FirstFragment extends Fragment {
                              Bundle savedInstanceState) {
         setHasOptionsMenu(true); // to show actionbar icon calling onCreateOptionsMenu
         // Inflate the layout for this fragment
-        MainActivity ma= (MainActivity)getActivity();
-
         return inflater.inflate(R.layout.fragment_first, container, false);
     }
 
@@ -39,6 +35,7 @@ public class FirstFragment extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.first,menu);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

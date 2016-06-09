@@ -2,7 +2,6 @@ package ar.edu.ort.navigation101;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
 import android.support.v4.view.GravityCompat;
@@ -40,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, 0, 0);
-        drawerLayout.setDrawerListener(toggle);
+        drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         setearListener(navigationView);
@@ -66,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
                 item.setChecked(true);
-                Fragment fragment = null;
                 switch(item.getItemId()) {
                     case R.id.nav_camera:
                         Log.d("Choose:","Camera");
@@ -81,11 +79,8 @@ public class MainActivity extends AppCompatActivity {
                         FragmentManager fm = getSupportFragmentManager();
                         UserNameDialog userNameDialog = new UserNameDialog();
                         userNameDialog.show(fm, "fragment_edit_name");
-
                         break;
-
                 }
-
 
                 drawerLayout.closeDrawers();
                 return true;
@@ -94,14 +89,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void setUserName (String userName) {
-        this.userName = userName;
-        navUserName.setText(userName);
-    }
-
-    public String getUserName() {
-        return userName;
-    }
 
     // Abre el drawer al clickear el burger
     @Override
@@ -112,6 +99,15 @@ public class MainActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setUserName (String userName) {
+        this.userName = userName;  // Setear variable de clase
+        navUserName.setText(userName); // Setear el texto en la cabecera del drawer
+    }
+
+    public String getUserName() {
+        return userName;
     }
 
 }
