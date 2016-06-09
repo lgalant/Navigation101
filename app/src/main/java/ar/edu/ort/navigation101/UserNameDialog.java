@@ -22,18 +22,22 @@ public class UserNameDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_user_name, container);
+
+        final MainActivity mainActivity  = (MainActivity) getActivity(); // Politicamente incorrecto
         final EditText userName = (EditText) view.findViewById(R.id.txt_your_name);
+        userName.setText(mainActivity.getUserName());
+
         Button b = (Button) view.findViewById(R.id.confirmar);
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.d("Click","OK");
-                MainActivity mainActivity  = (MainActivity) getActivity();
-                mainActivity.userName=userName.getText().toString();
+                mainActivity.setUserName(userName.getText().toString());
+                dismiss();
 
             }
         });
-        getDialog().setTitle("Ingrese nomre de usuario");
+        getDialog().setTitle("Ingrese nombre de usuario");
 
         return view;
     }

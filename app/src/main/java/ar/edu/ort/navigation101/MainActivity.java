@@ -11,14 +11,15 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     private DrawerLayout drawerLayout;
     private FragmentTabHost tabHost;
-    public String userName="";
+    private String userName="";
+    private TextView navUserName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,14 +28,9 @@ public class MainActivity extends AppCompatActivity {
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         inicializarToolbar(); // Setear Toolbar como action bar
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        if (navigationView != null) {
-            setearListener(navigationView);
-        }
+        inicializarTabs(); // Crear los tabs
 
     }
-
 
 
 
@@ -43,10 +39,16 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawerLayout, toolbar, 0,0);
+                this, drawerLayout, toolbar, 0, 0);
         drawerLayout.setDrawerListener(toggle);
         toggle.syncState();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        setearListener(navigationView);
+        navUserName = (TextView)navigationView.getHeaderView(0).findViewById(R.id.nav_username);
 
+    }
+
+    private void inicializarTabs() {
         tabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
         tabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
         tabHost.addTab(
@@ -55,8 +57,6 @@ public class MainActivity extends AppCompatActivity {
         tabHost.addTab(
                 tabHost.newTabSpec("tab2").setIndicator("Tab 2", null),
                 SecondFragment.class, null);
-
-
     }
 
     private void setearListener(NavigationView navigationView) {
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                         Log.d("Choose:","Gallery");
                         tabHost.setCurrentTab(1);
                         break;
-                    case R.id.nav_send:
+                    case R.id.nav_user:
                         Log.d("Choose:","Send");
                         FragmentManager fm = getSupportFragmentManager();
                         UserNameDialog userNameDialog = new UserNameDialog();
@@ -85,11 +85,6 @@ public class MainActivity extends AppCompatActivity {
                 }
 
 
-//                FragmentManager fm = getSupportFragmentManager();
-//                fm.beginTransaction()
-//                        .replace(R.id.,fragment)
-//                        .commit();
-
                 drawerLayout.closeDrawers();
                 return true;
             }
@@ -97,6 +92,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void setUserName (String userName) {
+        this.userName = userName;
+        navUserName.setText(userName);
+    }
+
+    public String getUserName() {
+        return userName;
+    }
 
     // Abre el drawer al clickear el burger
     @Override
@@ -109,12 +112,4 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
-    // Infla el menu dentro del toolbar (settings, iconos)
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
 }

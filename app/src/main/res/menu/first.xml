@@ -4,11 +4,7 @@
         <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_add_a_photo_black_24dp"
-            android:title="Import"
+            android:title="Camera"
             app:showAsAction="always"/>
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_personal_video_black_24dp"
-            android:title="Gallery"
-            app:showAsAction="ifRoom"/>
+
 </menu>
